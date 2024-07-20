@@ -1,0 +1,33 @@
+/***********************************
+ * Copyright (c) 2024 Roger Brown.
+ * Licensed under the MIT License.
+ ****/
+
+import "oaidl.idl"; 
+
+[
+	object,
+	uuid(da758602-e5f5-42ae-bb61-dcf8a4fbbf3e),
+	oleautomation,
+	dual,
+	helpstring("interface IHelloWorld")
+]
+interface IHelloWorld : IDispatch
+{
+	HRESULT GetMessage(int Hint,[retval,out] BSTR *lpMessage);
+}
+
+[
+	uuid(8cda2b03-b310-4f2a-9482-48f35882ea22),
+	helpstring("AreYouBeingServed Hello World Component 1.0 Type Library"), 
+	version(1.0)
+]
+library RhubarbGeekNzAreYouBeingServed
+{
+	importlib("stdole32.tlb");
+	[uuid(cdc09da3-850a-45a3-b5a3-729a2d11e73d),helpstring("CHelloWorld class")]
+	coclass CHelloWorld
+	{
+		[default] interface IHelloWorld;
+	};
+}
