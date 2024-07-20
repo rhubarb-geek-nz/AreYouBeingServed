@@ -26,7 +26,6 @@ BEGIN
 			VALUE "FileVersion", "1.0.0.0\000\000"
 			VALUE "InternalName","dispsvr\000\000"
 			VALUE "OriginalFilename","DISPSVR.EXE\000\000"
-			VALUE "OLESelfRegister", "\0"
 		END
 	END
 	BLOCK "VarFileInfo"
