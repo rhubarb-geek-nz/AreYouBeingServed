@@ -4,17 +4,16 @@
  ****/
 
 using System;
-using System.Reflection;
 
-namespace dispnet
+namespace RhubarbGeekNz.AreYouBeingServed
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            object helloWorld = Activator.CreateInstance(Type.GetTypeFromProgID("RhubarbGeekNz.AreYouBeingServed"));
+            IHelloWorld helloWorld = Activator.CreateInstance(Type.GetTypeFromProgID("RhubarbGeekNz.AreYouBeingServed")) as IHelloWorld;
 
-            object result = helloWorld.GetType().InvokeMember("GetMessage", BindingFlags.Public | BindingFlags.Instance | BindingFlags.InvokeMethod, null, helloWorld, new object[] { 1 });
+            string result = helloWorld.GetMessage(args.Length > 0 ? Int32.Parse(args[0]) : 1);
 
             Console.WriteLine($"{result}");
         }

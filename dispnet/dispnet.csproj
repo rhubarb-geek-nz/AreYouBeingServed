@@ -5,4 +5,8 @@
     <TargetFramework>net6.0-windows</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="rhubarb-geek-nz.AreYouBeingServed" Version="1.0.0" />
+  </ItemGroup>
+
 </Project>

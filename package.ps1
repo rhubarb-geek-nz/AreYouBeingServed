@@ -158,3 +158,27 @@ finally
 {
 	Pop-Location
 }
+
+$null = New-Item -Path '.' -Name 'base' -ItemType 'directory'
+
+try
+{
+	Copy-Item 'README.md' 'base\README.md'
+
+	$Null = New-Item -Path 'base' -Name 'lib' -ItemType 'directory'
+
+	$Null = New-Item -Path 'base\lib' -Name 'netstandard2.1' -ItemType 'directory'
+
+	Copy-Item 'bin\x86\disptlb.dll' 'base\lib\netstandard2.1\disptlb.dll'
+
+	& nuget pack 'disptlb\disptlb.nuspec' -BasePath 'base'
+
+	If ( $LastExitCode -ne 0 )
+	{
+		Exit $LastExitCode
+	}
+}
+finally
+{
+	Remove-Item 'base' -Recurse
+}
