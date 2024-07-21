@@ -5,6 +5,7 @@
 
 #include <objbase.h>
 #include <stdio.h>
+#include <dispsvr_h.h>
 
 int main(int argc, char** argv)
 {
@@ -21,48 +22,24 @@ int main(int argc, char** argv)
 
 		if (SUCCEEDED(hr))
 		{
-			IDispatch* helloWorld = NULL;
+			IHelloWorld* helloWorld = NULL;
 
-			hr = CoCreateInstance(clsid, NULL, CLSCTX_LOCAL_SERVER, IID_IDispatch, (void**)&helloWorld);
+			hr = CoCreateInstance(clsid, NULL, CLSCTX_LOCAL_SERVER, IID_IHelloWorld, (void**)&helloWorld);
 
 			if (SUCCEEDED(hr))
 			{
-				BSTR names[] = { SysAllocString(L"GetMessage") };
-				DISPID dispIds[sizeof(names) / sizeof(names[0])];
-				int namesCount = sizeof(names) / sizeof(names[0]);
+				BSTR result = NULL;
 
-				hr = helloWorld->GetIDsOfNames(IID_NULL, names, namesCount, LOCALE_USER_DEFAULT, dispIds);
+				hr = helloWorld->GetMessage(1, &result);
 
 				if (SUCCEEDED(hr))
 				{
-					VARIANT result;
-					DISPPARAMS params = { 0,0,0,0 };
-					UINT argErr;
-					EXCEPINFO ex;
-					VARIANTARG arg;
+					printf("%S\n", result);
 
-					arg.vt = VT_I4;
-					arg.intVal = 1;
-					params.cArgs = 1;
-					params.rgvarg = &arg;
-
-					ZeroMemory(&ex, sizeof(ex));
-
-					VariantInit(&result);
-
-					hr = helloWorld->Invoke(dispIds[0], IID_NULL, LOCALE_USER_DEFAULT, DISPATCH_METHOD, &params, &result, &ex, &argErr);
-
-					if (result.vt == VT_BSTR)
+					if (result)
 					{
-						printf("%S\n", result.bstrVal);
+						SysFreeString(result);
 					}
-
-					VariantClear(&result);
-				}
-
-				while (namesCount--)
-				{
-					SysFreeString(names[namesCount]);
 				}
 
 				helloWorld->Release();

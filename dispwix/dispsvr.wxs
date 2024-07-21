@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="*" Name="AreYouBeingServed ($(env.PRODUCTARCH))" Language="1033" Version="$(env.PRODUCTVERSION)" Manufacturer="rhubarb-geek-nz" UpgradeCode="$(env.UPGRADECODE)">
+  <Product Id="*" Name="rhubarb-geek-nz/AreYouBeingServed ($(env.PRODUCTARCH))" Language="1033" Version="$(env.PRODUCTVERSION)" Manufacturer="rhubarb-geek-nz" UpgradeCode="$(env.UPGRADECODE)">
     <Package InstallerVersion="$(env.INSTALLERVERSION)" Compressed="yes" InstallScope="perMachine" Platform="$(env.PRODUCTARCH)" Description="Dual-Interface Hello World Component" Comments="https://github.com/rhubarb-geek-nz/AreYouBeingServed" />
     <MediaTemplate EmbedCab="yes" />
     <Feature Id="ProductFeature" Title="setup" Level="1">
@@ -25,7 +25,11 @@
   <Fragment>
     <ComponentGroup Id="ProductComponents">
       <Component Id="cmp49644F99A8DC013BD2FA39270E26C76C" Guid="*" Directory="INSTALLDIR" Win64="$(env.PRODUCTWIN64)">
-        <File Id="fil206829A74DFF7880F64BE9D5C35CFF80" KeyPath="yes" Source="..\bin\$(env.PRODUCTARCH)\dispsvr.exe" />
+        <File Id="fil206829A74DFF7880F64BE9D5C35CFF80" KeyPath="yes" Source="..\bin\$(env.PRODUCTARCH)\dispsvr.exe">
+          <TypeLib Id="{8CDA2B03-B310-4F2A-9482-48F35882EA22}" Description="AreYouBeingServed Hello World Component 1.0 Type Library" HelpDirectory="INSTALLDIR" MajorVersion="1" MinorVersion="0" Language="0">
+            <Interface Id="{DA758602-E5F5-42AE-BB61-DCF8A4FBBF3E}" Name="IHelloWorld" ProxyStubClassId32="{00020424-0000-0000-C000-000000000046}" />
+          </TypeLib>
+        </File>
         <RegistryValue Id="reg852b816e97fc40558f6085a82a262f7e" Root="HKCR" Key="CLSID\{CDC09DA3-850A-45A3-B5A3-729A2D11E73D}\LocalServer32" Value="[!fil206829A74DFF7880F64BE9D5C35CFF80]" Type="string" Action="write" />
         <RegistryValue Id="regc20ac5fc9e314d5cbf17c7fa18fd6e08" Root="HKCR" Key="RhubarbGeekNz.AreYouBeingServed\CLSID" Value="{CDC09DA3-850A-45A3-B5A3-729A2D11E73D}" Type="string" Action="write" />
       </Component>

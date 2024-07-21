@@ -4,7 +4,7 @@
  ****/
 
 #include<windows.h>
-#include <dispsvr.h>
+#include <dispsvr_h.h>
 
 static HANDLE globalEvent;
 static OLECHAR globalModuleFileName[260];
