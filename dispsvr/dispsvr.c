@@ -6,7 +6,7 @@
 #include<windows.h>
 #include <dispsvr.h>
 
-static DWORD tidMain;
+static HANDLE globalEvent;
 static OLECHAR globalModuleFileName[260];
 
 typedef struct CHelloWorldData
@@ -75,7 +75,12 @@ static STDMETHODIMP_(ULONG) CHelloWorld_IUnknown_Release(IUnknown* pThis)
 		LocalFree(pData);
 		if (0 == CoReleaseServerProcess())
 		{
-			PostThreadMessageW(tidMain, WM_QUIT, 0, 0);
+			HANDLE event = globalEvent;
+
+			if (event)
+			{
+				SetEvent(event);
+			}
 		}
 	}
 
@@ -265,7 +270,12 @@ static STDMETHODIMP CClassObject_CHelloWorld_IClassFactory_LockServer(IClassFact
 	{
 		if (0 == CoReleaseServerProcess())
 		{
-			PostThreadMessageW(tidMain, WM_QUIT, 0, 0);
+			HANDLE event = globalEvent;
+
+			if (event)
+			{
+				SetEvent(event);
+			}
 		}
 	}
 
@@ -292,7 +302,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 		return 10;
 	}
 
-	tidMain = GetCurrentThreadId();
+	globalEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
 
 	hr = CoInitializeEx(NULL, COINIT_MULTITHREADED | COINIT_DISABLE_OLE1DDE);
 
@@ -306,13 +316,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 		{
 			__try
 			{
-				MSG msg;
-
-				while (GetMessageW(&msg, 0, 0, 0))
-				{
-					TranslateMessage(&msg);
-					DispatchMessageW(&msg);
-				}
+				WaitForSingleObject(globalEvent, INFINITE);
 			}
 			__finally
 			{
@@ -321,6 +325,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 		}
 
 		CoUninitialize();
+	}
+
+	{
+		HANDLE event = globalEvent;
+		globalEvent = NULL;
+		CloseHandle(event);
 	}
 
 	return FAILED(hr);
