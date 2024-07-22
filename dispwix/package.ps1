@@ -2,7 +2,8 @@
 # Licensed under the MIT License.
 
 param(
-	$CertificateThumbprint = '601A8B683F791E51F647D34AD102C38DA4DDB65F'
+	$CertificateThumbprint = '601A8B683F791E51F647D34AD102C38DA4DDB65F',
+	$Architectures = @('arm', 'arm64', 'x86', 'x64')
 )
 
 $ProgressPreference = 'SilentlyContinue'
@@ -13,7 +14,7 @@ trap
 	throw $PSItem
 }
 
-foreach ($ARCH in 'arm', 'arm64', 'x86', 'x64')
+foreach ($ARCH in $Architectures)
 {
 	$VERSION=(Get-Item "..\bin\$ARCH\dispsvr.exe").VersionInfo.ProductVersion
 

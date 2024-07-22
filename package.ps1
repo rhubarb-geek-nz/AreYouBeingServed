@@ -152,7 +152,7 @@ try
 
 	Get-ChildItem . -Filter '*.msi' | Remove-Item
 
-	.\package.ps1 -CertificateThumbprint $CertificateThumbprint
+	.\package.ps1 -CertificateThumbprint $CertificateThumbprint -Architectures $ARCHLIST
 }
 finally
 {
