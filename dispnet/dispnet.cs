@@ -11,7 +11,7 @@ namespace RhubarbGeekNzAreYouBeingServed
     {
         static void Main(string[] args)
         {
-            IHelloWorld helloWorld = Activator.CreateInstance(Type.GetTypeFromProgID("RhubarbGeekNz.AreYouBeingServed", true)) as IHelloWorld;
+            IHelloWorld helloWorld = new CHelloWorld();
 
             string result = helloWorld.GetMessage(args.Length > 0 ? Int32.Parse(args[0]) : 1);
 
