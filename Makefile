@@ -5,8 +5,9 @@ BINDIR=bin\$(VSCMD_ARG_TGT_ARCH)
 APPNAME=dispapp
 SVRNAME=dispsvr
 TLBNAME=disptlb
+LIBNAME=RhubarbGeekNzAreYouBeingServed
 
-all: $(BINDIR) $(BINDIR)\$(SVRNAME).exe $(BINDIR)\$(TLBNAME).dll $(BINDIR)\$(APPNAME).exe
+all: $(BINDIR) $(BINDIR)\$(SVRNAME).exe $(BINDIR)\$(LIBNAME).dll $(BINDIR)\$(APPNAME).exe
 
 clean:
 	if exist $(BINDIR) rmdir /q /s $(BINDIR)
@@ -29,8 +30,8 @@ $(BINDIR)\$(APPNAME).exe: $(APPNAME)\$(BINDIR)\$(APPNAME).exe
 $(BINDIR)\$(SVRNAME).exe: $(SVRNAME)\$(BINDIR)\$(SVRNAME).exe
 	copy $(SVRNAME)\$(BINDIR)\$(SVRNAME).exe $@
 
-$(BINDIR)\$(TLBNAME).dll: $(TLBNAME)\$(BINDIR)\$(TLBNAME).dll
-	copy $(TLBNAME)\$(BINDIR)\$(TLBNAME).dll $@
+$(BINDIR)\$(LIBNAME).dll: $(TLBNAME)\$(BINDIR)\$(LIBNAME).dll
+	copy $(TLBNAME)\$(BINDIR)\$(LIBNAME).dll $@
 
 $(APPNAME)\$(BINDIR)\$(APPNAME).exe:
 	cd $(APPNAME)
@@ -42,7 +43,7 @@ $(SVRNAME)\$(BINDIR)\$(SVRNAME).exe:
 	$(MAKE) CertificateThumbprint=$(CertificateThumbprint)
 	cd ..
 
-$(TLBNAME)\$(BINDIR)\$(TLBNAME).dll:
+$(TLBNAME)\$(BINDIR)\$(LIBNAME).dll:
 	cd $(TLBNAME)
 	$(MAKE) CertificateThumbprint=$(CertificateThumbprint)
 	cd ..
