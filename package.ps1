@@ -98,9 +98,10 @@ EXIT %ERRORLEVEL%
 	}
 }
 
-$HERE = $PWD
+[string]$HERE = $PWD
+[int]$HERELEN = $HERE.Length + 1
 
-Get-ChildItem "$HERE\bin" -File -Recurse | ForEach-Object {
+Get-ChildItem "$HERE\bin", "$HERE\disptlb\bin" -File -Recurse | ForEach-Object {
 	$EXE = $_.FullName
 
 	$MACHINE = ( @"
@@ -116,7 +117,7 @@ EXIT %ERRORLEVEL%
 	$MACHINE = $MACHINE.Substring($MACHINE.LastIndexOf(' ')+1)
 
 	New-Object PSObject -Property @{
-		Executable=$EXE;
+		Executable=$EXE.SubString($HERELEN);
 		Machine=$MACHINE;
 		FileVersion=(Get-Item $EXE).VersionInfo.FileVersion;
 		ProductVersion=(Get-Item $EXE).VersionInfo.ProductVersion;
@@ -124,7 +125,7 @@ EXIT %ERRORLEVEL%
 	}
 } | Format-Table -Property Executable, Machine, FileVersion, ProductVersion, FileDescription
 
-$Version = (Get-Item bin\x64\dispsvr.exe).VersionInfo.ProductVersion
+$Version = (Get-Item bin\x64\RhubarbGeekNzAreYouBeingServed.exe).VersionInfo.ProductVersion
 $PackageId = 'rhubarb-geek-nz.AreYouBeingServed'
 $PackageZip = "$PackageId.$Version.zip"
 
@@ -167,9 +168,9 @@ try
 
 	$Null = New-Item -Path 'base' -Name 'lib' -ItemType 'directory'
 
-	$Null = New-Item -Path 'base\lib' -Name 'netstandard2.1' -ItemType 'directory'
+	$Null = New-Item -Path 'base\lib' -Name 'netstandard2.0' -ItemType 'directory'
 
-	Copy-Item 'bin\x86\RhubarbGeekNzAreYouBeingServed.dll' 'base\lib\netstandard2.1\RhubarbGeekNzAreYouBeingServed.dll'
+	Copy-Item 'disptlb\bin\x86\RhubarbGeekNzAreYouBeingServed.dll' 'base\lib\netstandard2.0\RhubarbGeekNzAreYouBeingServed.dll'
 
 	& nuget pack 'disptlb\disptlb.nuspec' -BasePath 'base'
 

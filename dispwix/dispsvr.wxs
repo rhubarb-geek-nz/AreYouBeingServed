@@ -16,16 +16,18 @@
   <Fragment>
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="$(env.PRODUCTPROGFILES)">
-        <Directory Id="COMPANYDIR" Name="rhubarb-geek-nz" >
-          <Directory Id="INSTALLDIR" Name="AreYouBeingServed" />
+        <Directory Id="COMPANYDIR" Name="rhubarb-geek-nz">
+          <Directory Id="INSTALLDIR" Name="AreYouBeingServed">
+            <Directory Id="INSTALLDIRBIN" Name="$(env.PRODUCTARCH)" />
+          </Directory>
         </Directory>
       </Directory>
     </Directory>
   </Fragment>
   <Fragment>
     <ComponentGroup Id="ProductComponents">
-      <Component Id="cmp49644F99A8DC013BD2FA39270E26C76C" Guid="*" Directory="INSTALLDIR" Win64="$(env.PRODUCTWIN64)">
-        <File Id="fil206829A74DFF7880F64BE9D5C35CFF80" KeyPath="yes" Source="..\bin\$(env.PRODUCTARCH)\dispsvr.exe">
+      <Component Id="cmp49644F99A8DC013BD2FA39270E26C76C" Guid="*" Directory="INSTALLDIRBIN" Win64="$(env.PRODUCTWIN64)">
+        <File Id="fil206829A74DFF7880F64BE9D5C35CFF80" KeyPath="yes" Source="..\bin\$(env.PRODUCTARCH)\RhubarbGeekNzAreYouBeingServed.exe">
           <TypeLib Id="{8CDA2B03-B310-4F2A-9482-48F35882EA22}" Description="AreYouBeingServed Hello World Component 1.0 Type Library" HelpDirectory="INSTALLDIR" MajorVersion="1" MinorVersion="0" Language="0">
             <Interface Id="{DA758602-E5F5-42AE-BB61-DCF8A4FBBF3E}" Name="IHelloWorld" ProxyStubClassId32="{00020424-0000-0000-C000-000000000046}" />
           </TypeLib>

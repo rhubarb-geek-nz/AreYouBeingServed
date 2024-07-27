@@ -6,8 +6,9 @@ APPNAME=dispapp
 SVRNAME=dispsvr
 TLBNAME=disptlb
 LIBNAME=RhubarbGeekNzAreYouBeingServed
+EXENAME=$(LIBNAME)
 
-all: $(BINDIR) $(BINDIR)\$(SVRNAME).exe $(BINDIR)\$(LIBNAME).dll $(BINDIR)\$(APPNAME).exe
+all: $(BINDIR) $(BINDIR)\$(EXENAME).exe $(TLBNAME)\$(BINDIR)\$(LIBNAME).dll $(BINDIR)\$(APPNAME).exe
 
 clean:
 	if exist $(BINDIR) rmdir /q /s $(BINDIR)
@@ -27,11 +28,8 @@ $(BINDIR):
 $(BINDIR)\$(APPNAME).exe: $(APPNAME)\$(BINDIR)\$(APPNAME).exe
 	copy $(APPNAME)\$(BINDIR)\$(APPNAME).exe $@
 
-$(BINDIR)\$(SVRNAME).exe: $(SVRNAME)\$(BINDIR)\$(SVRNAME).exe
+$(BINDIR)\$(EXENAME).exe: $(SVRNAME)\$(BINDIR)\$(SVRNAME).exe
 	copy $(SVRNAME)\$(BINDIR)\$(SVRNAME).exe $@
-
-$(BINDIR)\$(LIBNAME).dll: $(TLBNAME)\$(BINDIR)\$(LIBNAME).dll
-	copy $(TLBNAME)\$(BINDIR)\$(LIBNAME).dll $@
 
 $(APPNAME)\$(BINDIR)\$(APPNAME).exe:
 	cd $(APPNAME)

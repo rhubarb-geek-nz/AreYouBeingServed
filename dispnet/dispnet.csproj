@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' ">
-    <PackageReference Include="rhubarb-geek-nz.AreYouBeingServed" Version="1.0.2" />
+    <PackageReference Include="rhubarb-geek-nz.AreYouBeingServed" Version="1.0.3" />
   </ItemGroup>
 
 </Project>
