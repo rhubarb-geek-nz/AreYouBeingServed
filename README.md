@@ -8,7 +8,7 @@ Demonstration of local server COM object.
 
 [dispapp.cpp](dispapp/dispapp.cpp) creates an instance with [CoCreateInstance](https://learn.microsoft.com/en-us/windows/win32/api/combaseapi/nf-combaseapi-cocreateinstance) and uses it to get a message to display.
 
-[dispnet.cs](dispnet/dispnet.cs) demonstrates using [System.Activator.CreateInstance](https://learn.microsoft.com/en-us/dotnet/api/system.activator.createinstance) to create the instance.
+[dispnet.cs](dispnet/dispnet.cs) demonstrates using import library.
 
 [package.ps1](package.ps1) is used to automate the building of multiple architectures.
 
