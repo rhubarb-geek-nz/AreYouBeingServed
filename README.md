@@ -2,6 +2,16 @@
 
 Demonstration of local server COM object.
 
+```
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\RhubarbGeekNz.AreYouBeingServed\CLSID]
+@="{CDC09DA3-850A-45A3-B5A3-729A2D11E73D}"
+
+[HKEY_CLASSES_ROOT\CLSID\{CDC09DA3-850A-45A3-B5A3-729A2D11E73D}\LocalServer32]
+@="C:\\PROGRA~1\\RHUBAR~1\\AREYOU~1\\x64\\RHUBAR~1.EXE"
+```
+
 [dispsvr.idl](dispsvr/dispsvr.idl) defines the dual-interface for a simple local server.
 
 [dispsvr.c](dispsvr/dispsvr.c) implements the interface.
